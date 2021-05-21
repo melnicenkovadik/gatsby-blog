@@ -3,13 +3,15 @@ import { Link, graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import {  useTranslation} from 'gatsby-plugin-react-i18next';
 
 const IndexPage = ({ data }) => {
   const { nodes } = data.allMarkdownRemark;
+  const {t} = useTranslation();
 return (
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
+    <h1>{t('Logo')}</h1>
 
     <div className="posts">
       {nodes.map(post => {
@@ -30,7 +32,16 @@ return (
 export default IndexPage
 
 export const query = graphql`
-  query MainPage {
+  query MainPage($language: String!) {
+      locales: allLocale(filter: {language: {eq: $language}}) {
+          edges {
+              node {
+                  ns
+                  data
+                  language
+              }
+          }
+      },
     allMarkdownRemark {
       nodes {
         frontmatter {
@@ -46,5 +57,5 @@ export const query = graphql`
         id
       }
     }
-  }
+  },
 `

@@ -1,24 +1,22 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 exports.__esModule = true;
 exports.Style = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
-function css(strings, ...keys) {
-  const lastIndex = strings.length - 1;
-  return strings.slice(0, lastIndex).reduce((p, s, i) => p + s + keys[i], ``) + strings[lastIndex];
-}
+var _cssToObject = require("../css-to-object");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const Style = () => /*#__PURE__*/React.createElement("style", {
   dangerouslySetInnerHTML: {
-    __html: css`
+    __html: (0, _cssToObject.css)`
         :host {
           --color-ansi-selection: rgba(95, 126, 151, 0.48);
           --color-ansi-bg: #fafafa;
-          --color-ansi-bg-darker: #eeeeee;
           --color-ansi-fg: #545454;
           --color-ansi-white: #969896;
           --color-ansi-black: #141414;
@@ -39,21 +37,25 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           --importantLight: #ffffff;
           --importantDark: #000000;
           --backdrop: rgba(72, 67, 79, 0.5);
-          --color: rgb(69, 74, 83);
+          --color: #454a53;
           --background: var(--color-ansi-bright-white);
           --primary: #663399;
           --primaryLight: #9158ca;
           --link: var(--primary);
-          --dimmedBg: rgba(255, 255, 255, 0.8);
+          --line: #e0e0e0;
+          --colorHeader: rgba(255, 255, 255, 0.8);
           --codeFrame-bg: #eeeeee;
           --codeFrame-color: #414141;
           --codeFrame-button-bg: white;
           --radii: 5px;
-          --z-index-backdrop: 8000;
-          --z-index-overlay: 9000;
+          --z-index-backdrop: 9000;
+          --z-index-overlay: 10000;
           --space: 1.5em;
           --space-sm: 1em;
           --space-lg: 2.5em;
+          --rootBoxShadowOpacity: 0.08;
+          --ring-opacity: 0.65;
+          --ring-color: rgba(138, 75, 175, var(--ring-opacity));
         }
 
         [data-gatsby-overlay="backdrop"] {
@@ -66,7 +68,6 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           height: 100%;
           width: 100%;
           backdrop-filter: blur(10px);
-          cursor: not-allowed;
           z-index: var(--z-index-backdrop);
         }
 
@@ -84,8 +85,9 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           top: 50%;
           left: 50%;
           transform: translateX(-50%) translateY(-50%);
-          box-shadow: rgba(46, 41, 51, 0.08) 0px 7px 19px 11px,
-            rgba(71, 63, 79, 0.08) 0px 2px 4px;
+          box-shadow: rgba(46, 41, 51, var(--rootBoxShadowOpacity)) 0px 7px 19px
+              11px,
+            rgba(71, 63, 79, var(--rootBoxShadowOpacity)) 0px 2px 4px;
           border-radius: var(--radii);
           display: inline-flex;
           flex-direction: column;
@@ -96,6 +98,14 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           color: var(--link);
           text-decoration: none;
           font-weight: 500;
+          padding: 0.25em;
+          border-radius: 4px;
+        }
+
+        [data-gatsby-overlay="root"] button:focus,
+        [data-gatsby-overlay="root"] a:focus {
+          outline: 4px solid transparent;
+          box-shadow: 0 0 0 4px var(--ring-color);
         }
 
         [data-gatsby-overlay="root"] a:hover {
@@ -106,7 +116,7 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           display: grid;
           grid-gap: var(--space-sm);
           grid-template-columns: 1fr auto;
-          color: var(--dimmedBg);
+          color: var(--colorHeader);
           background: var(--primary);
           padding: var(--space);
           border-top-left-radius: var(--radii);
@@ -182,7 +192,9 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           font-weight: 500;
         }
 
-        [data-gatsby-overlay="header__open-in-editor"] {
+        [data-gatsby-overlay="primary-button"] {
+          --ring-opacity: 0.9;
+          --ring-color: rgba(54, 32, 102, var(--ring-opacity));
           align-items: center;
           border-radius: var(--radii);
           justify-content: center;
@@ -219,7 +231,7 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           background: var(--codeFrame-button-bg);
           font-size: 0.9em;
           min-width: 2em;
-          padding: 0.25em 0.75em;
+          padding: 0.35em 0.75em;
           appearance: none;
           margin-right: var(--space-sm);
         }
@@ -231,7 +243,9 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           margin-bottom: 0.5em;
         }
 
-        [data-gatsby-overlay="header__close-button"] {
+        [data-gatsby-overlay="close-button"] {
+          --ring-opacity: 0.9;
+          --ring-color: rgba(54, 32, 102, var(--ring-opacity));
           cursor: pointer;
           border: 0;
           padding: 0;
@@ -283,7 +297,7 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
         [data-gatsby-overlay="accordion__item"] {
           overflow: visible;
           box-sizing: border-box;
-          border-top: 1px solid #e0e0e0;
+          border-top: 1px solid var(--line);
           transition: all 110ms cubic-bezier(0.2, 0, 0.38, 0.9);
           margin: 0;
           padding: 0;
@@ -305,6 +319,7 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           padding: 1em 0;
           cursor: pointer;
           appearance: none;
+          user-select: text;
         }
 
         [data-gatsby-overlay="accordion__item__heading"] svg {
@@ -312,6 +327,7 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           width: 1em;
           height: 1em;
           margin: 2px 1em 0 0;
+          color: var(--importantDark);
         }
 
         [data-gatsby-overlay="accordion__item__title"] {
@@ -357,6 +373,47 @@ const Style = () => /*#__PURE__*/React.createElement("style", {
           [data-gatsby-overlay="header"],
           [data-gatsby-error-type="build-error"][data-gatsby-overlay="header"] {
             grid-template-columns: 1fr auto;
+          }
+        }
+
+        @media (prefers-color-scheme: dark) {
+          :host {
+            --color-ansi-bg: #2b2b2b;
+            --color-ansi-fg: #d1d5db;
+            --color-ansi-white: #ffffff;
+            --color-ansi-black: #d4d0ab;
+            --color-ansi-blue: #4791ff;
+            --color-ansi-cyan: #00e0e0;
+            --color-ansi-green: #abe338;
+            --color-ansi-magenta: #dcc6e0;
+            --color-ansi-red: #ffa07a;
+            --color-ansi-yellow: #ffd700;
+            --color-ansi-bright-white: #ffffff;
+            --color-ansi-bright-black: #d4d0ab;
+            --color-ansi-bright-blue: #4791ff;
+            --color-ansi-bright-cyan: #00e0e0;
+            --color-ansi-bright-green: #abe338;
+            --color-ansi-bright-magenta: #dcc6e0;
+            --color-ansi-bright-red: #ffa07a;
+            --color-ansi-bright-yellow: #ffd700;
+            --importantDark: white;
+            --backdrop: rgba(48, 48, 50, 0.75);
+            --color: #d1d5db;
+            --link: #d9bae8;
+            --background: #232129;
+            --primary: #452475;
+            --primaryLight: #663399;
+            --line: #464647;
+            --codeFrame-bg: #18171d;
+            --codeFrame-color: #d1d5db;
+            --codeFrame-button-bg: #232129;
+            --rootBoxShadowOpacity: 0.15;
+            --ring-color: rgba(217, 186, 232, var(--ring-opacity));
+          }
+
+          [data-gatsby-overlay="close-button"],
+          [data-gatsby-overlay="primary-button"] {
+            --ring-color: rgba(177, 122, 204, var(--ring-opacity));
           }
         }
       `

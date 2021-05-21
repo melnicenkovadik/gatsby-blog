@@ -5,8 +5,6 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 exports.__esModule = true;
 exports.notCalledFunction = notCalledFunction;
 
-var _interopRequireWildcard2 = _interopRequireDefault(require("@babel/runtime/helpers/interopRequireWildcard"));
-
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
@@ -39,12 +37,14 @@ var _navigation = require("./navigation");
 
 require("./blank.css");
 
-// Generated during bootstrap
-// ensure in develop we have at least some .css (even if it's empty).
-// this is so there is no warning about not matching content-type when site doesn't include any regular css (for example when css-in-js is used)
-// this also make sure that if all css is removed in develop we are not left with stale commons.css that have stale content
-// Enable fast-refresh for virtual sync-requires and gatsby-browser
-module.hot.accept([`$virtual/async-requires`, `./api-runner-browser`]);
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// Enable fast-refresh for virtual sync-requires, gatsby-browser & navigation
+// To ensure that our <Root /> component can hot reload in case anything below doesn't
+// satisfy fast-refresh constraints
+module.hot.accept([`$virtual/async-requires`, `./api-runner-browser`, `./navigation`]);
 window.___emitter = _emitter.default;
 const loader = new _devLoader.default(_asyncRequires.default, _matchPaths.default);
 (0, _loader.setLoader)(loader);
@@ -58,7 +58,7 @@ window.___loader = _loader.publicLoader; // Do dummy dynamic import so the jsonp
 // error.
 
 function notCalledFunction() {
-  return Promise.resolve().then(() => (0, _interopRequireWildcard2.default)(require(`./dummy`)));
+  return Promise.resolve().then(() => _interopRequireWildcard(require(`./dummy`)));
 } // Let the site/plugins run code very early.
 
 
