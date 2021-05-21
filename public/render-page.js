@@ -11342,24 +11342,24 @@ module.exports = withSideEffect;
 /***/ }),
 
 /***/ "react-dom/server":
-/*!********************************************************************************************!*\
-  !*** external "C:\\Users\\melni\\Desktop\\New folder\\node_modules\\react-dom\\server.js" ***!
-  \********************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** external "C:\\Users\\melni\\Desktop\\folder\\node_modules\\react-dom\\server.js" ***!
+  \****************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("C:\\Users\\melni\\Desktop\\New folder\\node_modules\\react-dom\\server.js");;
+module.exports = require("C:\\Users\\melni\\Desktop\\folder\\node_modules\\react-dom\\server.js");;
 
 /***/ }),
 
 /***/ "react":
-/*!***************************************************************************************!*\
-  !*** external "C:\\Users\\melni\\Desktop\\New folder\\node_modules\\react\\index.js" ***!
-  \***************************************************************************************/
+/*!***********************************************************************************!*\
+  !*** external "C:\\Users\\melni\\Desktop\\folder\\node_modules\\react\\index.js" ***!
+  \***********************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("C:\\Users\\melni\\Desktop\\New folder\\node_modules\\react\\index.js");;
+module.exports = require("C:\\Users\\melni\\Desktop\\folder\\node_modules\\react\\index.js");;
 
 /***/ }),
 
